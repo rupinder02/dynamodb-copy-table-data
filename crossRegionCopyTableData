@@ -102,7 +102,7 @@ const putBulkDataInNewRegionTable = (data, credentials, newregion)=> {
         secretAccessKey: credentials.secretAccessKey,
         region: newregion
     });
-
+    let dynamoClientForNewRegion = new AWS.DynamoDB.DocumentClient();    
     return Promise.coroutine(
         function *() {
 
@@ -130,7 +130,7 @@ const putBulkDataInNewRegionTable = (data, credentials, newregion)=> {
 
             try {
 
-                return yield dynamoClient.batchWrite(params).promise();
+                return yield dynamoClientForNewRegion.batchWrite(params).promise();
 
             } catch (err) {
                 return err;
